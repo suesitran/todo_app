@@ -74,3 +74,6 @@ Looking at above design, it's a list view with 3 parts: Date and summary, Incomp
 In order to create this design, we'll use CustomScrollView. CustomScrollView is a ScrollView widget which allows custom scroll effects by using sliver widgets.
 
 The 'Date and summary' part will be inside a 'SliverToBoxAdapter' widget. The 2 lists 'Incomplete tasks', and 'Completed tasks' will be 2 SliverList widgets.
+
+This step also include writing Widget Test for the new UI we created.
+
