@@ -62,10 +62,48 @@ class HomePage extends StatelessWidget {
               SliverList(
                   delegate: SliverChildBuilderDelegate((context, index) {
                 if (index == 0) {
-                  return Text('Completed title');
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 16, bottom: 16),
+                    child: Text(
+                      'Completed',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1
+                          ?.copyWith(color: const Color(0xFF575767)),
+                    ),
+                  );
                 }
 
-                return Text('completed child');
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 16.0),
+                  child: Row(
+                    children: [
+                      Checkbox(
+                        value: true,
+                        onChanged: (value) {
+                          // TODO update value
+                        },
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Completed item',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2
+                                    ?.copyWith(
+                                        decoration: TextDecoration.lineThrough),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                );
               }, childCount: 5))
             ],
           ),
