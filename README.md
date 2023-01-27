@@ -54,4 +54,23 @@ flutter pub add --dev hive_generator build_runner
 ```
 And we've finished step 2.
 
+### Step 3: Create the UI with dummy data
+We'll use a simple Todo list UI design from Figma community, the link can be found here: https://www.figma.com/community/file/818969279430409745
 
+There will be light and dark theme, but in this demo, we're going to use only light theme for now.
+
+To easily test our widgets, I recommend to always move our widget out to a separate file.
+1. totally remove MyHomePage from pre-created code
+2. create a new package name 'features', this is where all actual feature implementation (both UI and bloc) will go into
+3. inside 'features', create a new package name 'home'
+4. create a new dart file with the name home_page
+5. in this new dart file, create a StatelessWidget with name 'HomePage'
+6. go back to main.dart, change the 'home' widget to point to our new HomePage, and update import
+
+Preparation is done. Now we need to change the UI inside home_page.dart
+
+Looking at above design, it's a list view with 3 parts: Date and summary, Incomplete tasks, and Completed tasks. It also has a floating action button, but there's no ordinary AppBar
+
+In order to create this design, we'll use CustomScrollView. CustomScrollView is a ScrollView widget which allows custom scroll effects by using sliver widgets.
+
+The 'Date and summary' part will be inside a 'SliverToBoxAdapter' widget. The 2 lists 'Incomplete tasks', and 'Completed tasks' will be 2 SliverList widgets.

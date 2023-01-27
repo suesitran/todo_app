@@ -16,18 +16,19 @@ class HomePage extends StatelessWidget {
               ),
               SliverList(delegate: SliverChildBuilderDelegate((context, index) {
                 if (index == 0) {
-                  return Text('Incomplete title');
+                  return Text('Incomplete');
                 }
                 return Text('Incomplete child');
               },
-              childCount: 8)),
+              childCount: 5)),
               SliverList(delegate: SliverChildBuilderDelegate((context, index) {
                 if (index == 0) {
                   return Text('Completed title');
                 }
 
-                return Text('completed child')
-              }))
+                return Text('completed child');
+              },
+              childCount: 5))
             ],
           ),
         ),
@@ -44,7 +45,12 @@ class DateAndSummaryView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('March 9, 2020', style: Theme.of(context).textTheme.headline4,)
+        Text('March 9, 2020', style: Theme.of(context).textTheme.headline4?.copyWith(color: const Color(0xFF0E0E11), fontWeight: FontWeight.w900),),
+        const SizedBox(height: 8.0,),
+        Text('5 incomplete, 5 completed', style: Theme.of(context).textTheme.bodyText1?.copyWith(color: const Color(0xFF575767), fontWeight: FontWeight.w400),),
+        const SizedBox(height: 16.0,),
+        const Divider(height: 1.0,),
+        const SizedBox(height: 16.0,)
       ],
     );
   }
