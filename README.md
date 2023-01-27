@@ -35,3 +35,23 @@ const MaterialColor primarySwatch = MaterialColor(
 );
 ```
 And that's it. We finish step 1.
+
+### Step 2: Add dependencies
+We're going to use flutter_bloc as our main state management, and hive_flutter as our main database, therefore we'll need to add them to our project.
+
+1. We need to add flutter_bloc and bloc packages to our project, by running command line
+```
+flutter pub add bloc flutter_bloc
+```
+in the root of the project, where the pubspec.yaml is. After this command is run, notice that the file pubspec.yaml is updated with 2 new packages under dependencies
+2. We also need to add hive and hive_flutter to our project, so similarly, we run the same command with different param now
+```
+flutter pub add hive hive_flutter
+```
+3. Hive will need hive_generator and build_runner packages in order to generate TypeAdapter it needs. We only need these packages during development, therefore we'll add them into dev_dependencies using this command
+```
+flutter pub add --dev hive_generator build_runner
+```
+And we've finished step 2.
+
+
