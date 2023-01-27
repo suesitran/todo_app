@@ -14,21 +14,59 @@ class HomePage extends StatelessWidget {
               const SliverToBoxAdapter(
                 child: DateAndSummaryView(),
               ),
-              SliverList(delegate: SliverChildBuilderDelegate((context, index) {
+              SliverList(
+                  delegate: SliverChildBuilderDelegate((context, index) {
                 if (index == 0) {
-                  return Text('Incomplete');
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 16, bottom: 16),
+                    child: Text(
+                      'Incomplete',
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1
+                          ?.copyWith(color: const Color(0xFF575767)),
+                    ),
+                  );
                 }
-                return Text('Incomplete child');
-              },
-              childCount: 5)),
-              SliverList(delegate: SliverChildBuilderDelegate((context, index) {
+
+                return Padding(
+                  padding: const EdgeInsets.only(bottom: 16.0),
+                  child: Row(
+                    children: [
+                      Checkbox(
+                        value: false,
+                        onChanged: (value) {
+                          // TODO update value
+                        },
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      ),
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: const [
+                            Text('Incomplete item',
+                                maxLines: 1, overflow: TextOverflow.ellipsis),
+                            Text(
+                              'Incomplete sub title',
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                );
+              }, childCount: 5)),
+              SliverList(
+                  delegate: SliverChildBuilderDelegate((context, index) {
                 if (index == 0) {
                   return Text('Completed title');
                 }
 
                 return Text('completed child');
-              },
-              childCount: 5))
+              }, childCount: 5))
             ],
           ),
         ),
@@ -45,14 +83,26 @@ class DateAndSummaryView extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('March 9, 2020', style: Theme.of(context).textTheme.headline4?.copyWith(color: const Color(0xFF0E0E11), fontWeight: FontWeight.w900),),
-        const SizedBox(height: 8.0,),
-        Text('5 incomplete, 5 completed', style: Theme.of(context).textTheme.bodyText1?.copyWith(color: const Color(0xFF575767), fontWeight: FontWeight.w400),),
-        const SizedBox(height: 16.0,),
-        const Divider(height: 1.0,),
-        const SizedBox(height: 16.0,)
+        Text(
+          'March 9, 2020',
+          style: Theme.of(context).textTheme.headline4?.copyWith(
+              color: const Color(0xFF0E0E11), fontWeight: FontWeight.w900),
+        ),
+        const SizedBox(
+          height: 8.0,
+        ),
+        Text(
+          '5 incomplete, 5 completed',
+          style: Theme.of(context).textTheme.bodyText1?.copyWith(
+              color: const Color(0xFF575767), fontWeight: FontWeight.w400),
+        ),
+        const SizedBox(
+          height: 16.0,
+        ),
+        const Divider(
+          height: 1.0,
+        ),
       ],
     );
   }
 }
-
