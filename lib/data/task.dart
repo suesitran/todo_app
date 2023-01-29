@@ -13,5 +13,14 @@ class Task {
   @HiveField(2, defaultValue: false)
   bool isCompleted;
 
-  Task({required this.description, required this.category, required this.isCompleted});
+  @HiveField(3)
+  int key;
+
+  Task({required this.description, required this.category, required this.isCompleted, required this.key});
+
+  Task.copyWith(Task other, {String? description, String? category, bool? isCompleted}) :
+      key = other.key,
+  description = description ?? other.description,
+        category = category ?? other.category,
+  isCompleted = isCompleted ?? other.isCompleted;
 }

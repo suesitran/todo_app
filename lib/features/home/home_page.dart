@@ -92,7 +92,10 @@ class _HomePageConsumer extends StatelessWidget {
                             Checkbox(
                               value: false,
                               onChanged: (value) {
-                                // TODO update value
+                                if (value != null) {
+                                  context.read<HomeCubit>().updateTask(
+                                      index, incomplete[index], value);
+                                }
                               },
                               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                             ),
@@ -136,8 +139,11 @@ class _HomePageConsumer extends StatelessWidget {
                             Checkbox(
                               value: true,
                               onChanged: (value) {
-                                // TODO update value
-                              },
+                                if (value != null) {
+                                  context.read<HomeCubit>().updateTask(
+                                      index, completed[index], value);
+                                }
+                                },
                               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                             ),
                             Expanded(

@@ -38,7 +38,27 @@ class HomeCubit extends Cubit<HomeState> {
     final Directory directory = await getApplicationSupportDirectory();
     final Box<Task> taskBox = await Hive.openBox(taskBoxName, path: directory.path);
 
-    taskBox.add(Task(description: description, category: '', isCompleted: false));
+    int key = taskBox.length;
+    taskBox.put(key, Task(description: description, category: '', isCompleted: false, key: key));
+
+    await taskBox.flush();
+
+    await taskBox.close();
+
+    emit(HomeDataSaved());
+
+    await _loadDataFromHive();
+  }
+
+  Future<void> updateTask(int index, Task task, bool isCompleted) async {
+    emit(HomeDataSaving());
+    final Directory directory = await getApplicationSupportDirectory();
+    final Box<Task> taskBox = await Hive.openBox(taskBoxName, path: directory.path);
+
+    task.isCompleted = isCompleted;
+
+    taskBox.delete(task.key);
+    taskBox.put(task.key, task);
 
     await taskBox.flush();
 
