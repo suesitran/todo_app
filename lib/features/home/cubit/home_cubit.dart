@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'package:todo_app/data/task.dart';
+export 'package:todo_app/data/task.dart';
 
 part 'home_state.dart';
 
@@ -14,7 +18,9 @@ class HomeCubit extends Cubit<HomeState> {
   }
 
   Future<void> _loadDataFromHive() async {
-    final Box<Task> taskBox = await Hive.openBox(taskBoxName);
+    final Directory directory = await getApplicationSupportDirectory();
+
+    final Box<Task> taskBox = await Hive.openBox(taskBoxName, path: directory.path);
 
     final Iterable<Task> tasks = taskBox.values.toList();
 
@@ -25,5 +31,21 @@ class HomeCubit extends Cubit<HomeState> {
     await taskBox.close();
 
     emit(HomeDataLoaded(incomplete: incomplete, completed: completed));
+  }
+
+  Future<void> saveTask(String description) async {
+    emit(HomeDataSaving());
+    final Directory directory = await getApplicationSupportDirectory();
+    final Box<Task> taskBox = await Hive.openBox(taskBoxName, path: directory.path);
+
+    taskBox.add(Task(description: description, category: '', isCompleted: false));
+
+    await taskBox.flush();
+
+    await taskBox.close();
+
+    emit(HomeDataSaved());
+
+    await _loadDataFromHive();
   }
 }

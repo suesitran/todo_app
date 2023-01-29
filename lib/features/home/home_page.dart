@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 
-import 'package:todo_app/bloc/main_bloc.dart';
 import 'package:todo_app/features/home/cubit/home_cubit.dart';
 import 'package:todo_app/features/home/widget/add_new_task_bottom_sheet.dart';
 import 'package:todo_app/features/home/widget/date_and_summary_view.dart';
@@ -25,7 +23,21 @@ class _HomePageConsumer extends StatelessWidget {
   @override
   Widget build(BuildContext context) => BlocConsumer<HomeCubit, HomeState>(
     listener: (context, state) {
+      if (state is HomeDataSaving) {
+        // show full screen progress dialog
+        showDialog(context: context, builder: (context) => const SimpleDialog(
+          backgroundColor: Colors.transparent,
+          children: [
+            Center(
+              child: CircularProgressIndicator.adaptive(),
+            )
+          ],
+        ),);
+      }
 
+      if (state is HomeDataSaved) {
+        Navigator.of(context).pop();
+      }
     },
     builder: (context, state) {
       List<Task> incomplete = [];
@@ -37,7 +49,17 @@ class _HomePageConsumer extends StatelessWidget {
       }
       return Scaffold(
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            // when tapping on floating action button, open bottom sheet to add new task
+            showModalBottomSheet(
+              context: context,
+              builder: (_) => AddNewTaskBottomSheet(
+                  onSave: (description) {
+                    context.read<HomeCubit>().saveTask(description);
+                  }
+              )
+            );
+          },
           backgroundColor: Theme.of(context).primaryColor,
           child: const Icon(Icons.add, color: Colors.white,),
         ),

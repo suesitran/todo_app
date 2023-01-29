@@ -11,3 +11,7 @@ class HomeDataLoaded extends HomeState {
 
   HomeDataLoaded({required this.incomplete, required this.completed});
 }
+
+class HomeDataSaving extends HomeState {}
+
+class HomeDataSaved extends HomeState {}
