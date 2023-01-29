@@ -77,3 +77,13 @@ The 'Date and summary' part will be inside a 'SliverToBoxAdapter' widget. The 2 
 
 This step also include writing Widget Test for the new UI we created.
 
+### Step 4: Implement bloc and Hive
+In step 4, we will work on integrating bloc and Hive in the same step. In this step, we'll create Hive Adapter, initialise Hive and register Hive Adapter in a global bloc, and access Hive database from a local cubit (light-weight bloc).
+
+We will also include a bloc_test package to help writing unit test for the bloc/cubit.
+
+Detail steps include:
+1. Create global bloc which wraps outside of MaterialApp.
+2. Create Hive Adapter to store details of tasks in a Todo list. Reference: https://docs.hivedb.dev/#/custom-objects/generate_adapter
+3. Initialise and register Hive and Hive Adapter
+4. Implement local cubit (a light-weight bloc) to read and write data to/from Hive database
