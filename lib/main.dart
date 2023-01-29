@@ -22,7 +22,32 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: primarySwatch,
         ),
-        home: const HomePage(),
+        home: Builder(
+          builder: (context) => BlocConsumer<MainBloc, MainState>(
+            builder: (context, state) {
+              if (state is MainInitial) {
+                context.read<MainBloc>().add(MainInitialiseEvent());
+              }
+              return const HomePage();
+            },
+            listener: (context, state) {
+              if (state is MainInitialiseStart) {
+                showDialog(context: context, builder: (context) => const SimpleDialog(
+                  backgroundColor: Colors.transparent,
+                  children: [
+                    Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    )
+                  ],
+                ));
+              }
+
+              if (state is MainInitialiseDone) {
+                Navigator.of(context).pop();
+              }
+            },
+          ),
+        ),
       ),
     );
   }
