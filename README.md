@@ -87,3 +87,17 @@ Detail steps include:
 2. Create Hive Adapter to store details of tasks in a Todo list. Reference: https://docs.hivedb.dev/#/custom-objects/generate_adapter
 3. Initialise and register Hive and Hive Adapter
 4. Implement local cubit (a light-weight bloc) to read and write data to/from Hive database
+
+### Step 5: App issues and improvement
+Congratulation. You have completed a simple Todo List application using Bloc and Hive database.
+
+However, this app is having some issues as listed:
+- pixel overflow
+- distorted UI in full-screen progress dialog
+- bloc implementation is not optimal
+- no localisation included
+- low test coverage
+- Dark mode not supported
+And more. 
+
+Your next step is to fix above issues. Good luck!
